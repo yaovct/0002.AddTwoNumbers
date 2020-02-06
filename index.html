@@ -1,0 +1,84 @@
+<html>
+<script>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+
+function ListNode(val) {
+	this.val = val;
+	this.next = null;
+}
+
+function readList(ll) {
+	var p = ll;
+	var msg = "[";
+	while(p.next != null) {
+		msg += p.val + ",";
+		p = p.next;
+	}
+	msg += p.val + "]";
+	console.log(msg);
+}
+
+var addTwoNumbers = function(l1, l2) {
+	var l3; var h;
+	var p = l1;
+	var q = l2;
+	h = l3 = new ListNode((p.val + q.val)%10);
+	var carry = (p.val + q.val)/10 | 0;
+	p = p.next;
+	q = q.next;
+	while(p != null || q != null) {
+		if(p != null && q != null) {
+			h.next = new ListNode((p.val + q.val + carry)%10);
+			carry = (p.val + q.val + carry)/10 | 0;
+			p = p.next;
+			q = q.next;
+			h = h.next;
+		} else if(p != null) {
+			h.next = new ListNode((p.val + carry)%10);
+			carry = (p.val + carry)/10 | 0;
+			p = p.next;
+			h = h.next;
+		} else {
+			h.next = new ListNode((q.val + carry)%10);
+			carry = (q.val + carry)/10 | 0;
+			q = q.next;
+			h = h.next;
+		}
+	}
+	if(carry > 0) {
+		h.next = new ListNode(carry);
+	}
+  return l3;
+};
+
+var i1 = [2, 4, 5];
+var i2 = [3, 6, 4];
+var l1 = new ListNode(2);
+var l2 = new ListNode(3);
+var p = l1;
+var q = l2;
+for(var i=0; i<i1.length; i++) {
+	p.next = new ListNode(i1[i]);
+	p = p.next;
+}
+readList(l1);
+for(var i=0; i<i2.length; i++) {
+	q.next = new ListNode(i2[i]);
+	q = q.next;
+}
+readList(l2);
+var l3 = addTwoNumbers(l1, l2);
+readList(l3);
+</script>
+</html>
